@@ -4,12 +4,91 @@
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"> </script>
   </head>
   <body>
+
+    <a-assets>
+        <img id="sand-tex"       src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=512&q=80" crossorigin="anonymous">
+        <img id="sky-tex" src="sky.jpg" crossorigin="anonymous">
+        <img id="waffle-tex"     src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=256&q=80" crossorigin="anonymous">
+      </a-assets>
+
     <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
+      <a-entity position="-3 0 -6">
+        <a-box width="2" height="0.6" depth="2"
+                material="src: #sand-tex; repeat: 2 2; color: #EDC9AF">
+          </a-box>
+
+          <a-cylinder position="-0.8 0.9 0.8" radius="0.25" height="1.2"
+                      material="src: #sand-tex; repeat: 2 2; color: #DEB887">
+          </a-cylinder>
+          <a-cone position="-0.8 1.7 0.8" radius-bottom="0.3" radius-top="0"
+                  height="0.4" color="#C4A67A"></a-cone>
+
+ 
+          <a-cylinder position="0.8 0.9 0.8" radius="0.25" height="1.2"
+                      material="src: #sand-tex; repeat: 2 2; color: #DEB887">
+          </a-cylinder>
+          <a-cone position="0.8 1.7 0.8" radius-bottom="0.3" radius-top="0"
+                  height="0.4" color="#C4A67A"></a-cone>
+
+
+          <a-cylinder position="-0.8 0.9 -0.8" radius="0.25" height="1.2"
+                      material="src: #sand-tex; repeat: 2 2; color: #DEB887">
+          </a-cylinder>
+          <a-cone position="-0.8 1.7 -0.8" radius-bottom="0.3" radius-top="0"
+                  height="0.4" color="#C4A67A"></a-cone>
+
+          <a-cylinder position="0.8 0.9 -0.8" radius="0.25" height="1.2"
+                      material="src: #sand-tex; repeat: 2 2; color: #DEB887">
+          </a-cylinder>
+          <a-cone position="0.8 1.7 -0.8" radius-bottom="0.3" radius-top="0"
+                  height="0.4" color="#C4A67A"></a-cone>
+
+    
+          <a-cylinder position="0 1.1 0" radius="0.35" height="1.6"
+                      material="src: #sand-tex; repeat: 2 3; color: #D2B48C">
+          </a-cylinder>
+          <a-cone position="0 2.1 0" radius-bottom="0.42" radius-top="0"
+                  height="0.5" color="#C4A67A"></a-cone>
+                </a-entity>
+
+      <a-entity position="0.5 0 -4.5">
+     
+        <a-cone position="0 0.65 0" radius-bottom="0" radius-top="0.3"
+                height="0.9"
+                material="src: #waffle-tex; repeat: 3 3; color: #D4A056">
+        </a-cone>
+
+       
+        <a-sphere position="0 1.2 0" radius="0.32"
+                  material="color: #FFF9C4; roughness: 0.9">
+        </a-sphere>
+
+        
+        <a-sphere position="0 1.7 0" radius="0.28"
+                  material="color: #F48FB1; roughness: 0.85">
+        </a-sphere>
+
+       
+        <a-sphere position="0 2.1 0" radius="0.24"
+                  material="color: #6D4C41; roughness: 0.8">
+        </a-sphere>
+
+      
+        <a-sphere position="0 2.38 0" radius="0.08"
+                  material="color: #D32F2F; shader: flat">
+        </a-sphere>
+        
+        <a-cylinder position="0 2.5 0" radius="0.012" height="0.16"
+                    rotation="0 0 15" color="#2E7D32"></a-cylinder>
+      </a-entity>
+
+      <a-sky src="#sky-tex"></a-sky>
+      
     </a-scene>
+
+
+    
+
+
   </body>
 </html>

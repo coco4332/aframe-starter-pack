@@ -1,15 +1,239 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"> </script>
+    <meta charset="utf-8">
+    <title>Exoplanet Outpost — WebXR World</title>
+    <meta name="description" content="A lone research outpost on the surface of a distant alien planet, surrounded by strange terrain under a vast nebula sky.">
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+    </style>
   </head>
   <body>
-    <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
+    <a-scene fog="type: exponential; color: #0a0a1a; density: 0.015">
+
+      <!-- =============================== -->
+      <!--         ASSET MANAGEMENT         -->
+      <!-- =============================== -->
+      <a-assets>
+        <!-- Equirectangular sky (SpaceSpheremaps — blue nebulae) -->
+        <img id="sky-tex" src="assets/sky.jpg">
+
+        <!-- 3D Models (Quaternius Ultimate Space Kit — CC0) -->
+        <a-asset-item id="astronaut-model" src="assets/Astronaut.glb"></a-asset-item>
+        <a-asset-item id="planet-model"    src="assets/Planet.glb"></a-asset-item>
+        <a-asset-item id="spaceship-model" src="assets/Spaceship.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- =============================== -->
+      <!--          SKY & LIGHTING          -->
+      <!-- =============================== -->
+
+      <!-- Equirectangular sky -->
+      <a-sky src="#sky-tex"></a-sky>
+
+      <!-- Dim ambient light (deep space feel) -->
+      <a-entity light="type: ambient; color: #334466; intensity: 0.4"></a-entity>
+
+      <!-- Main directional "star light" casting from above-right -->
+      <a-entity light="type: directional; color: #AAC8FF; intensity: 0.8"
+                position="5 10 -3"></a-entity>
+
+      <!-- Secondary warm fill light from the left -->
+      <a-entity light="type: directional; color: #FF9944; intensity: 0.3"
+                position="-8 4 2"></a-entity>
+
+      <!-- Point light near the spaceship (engine glow) -->
+      <a-entity light="type: point; color: #00CCFF; intensity: 0.6; distance: 15"
+                position="-5 1.5 -8"></a-entity>
+
+      <!-- =============================== -->
+      <!--       GROUND: ALIEN TERRAIN      -->
+      <!-- =============================== -->
+
+      <!-- Main ground plane — dark rocky alien surface -->
+      <a-circle position="0 0 0" rotation="-90 0 0" radius="60"
+                material="color: #1a1a2e; roughness: 1; metalness: 0.1">
+      </a-circle>
+
+      <!-- Raised terrain patches (rocky outcrops) -->
+      <a-cone position="12 0 -15" radius-bottom="3" radius-top="0.3"
+              height="4" material="color: #2a1f3d; roughness: 0.9">
+      </a-cone>
+      <a-cone position="-10 0 -20" radius-bottom="4" radius-top="0.5"
+              height="5.5" material="color: #1e1535; roughness: 0.95">
+      </a-cone>
+      <a-cone position="18 0 -10" radius-bottom="2" radius-top="0.2"
+              height="3" material="color: #2d1f42; roughness: 0.85">
+      </a-cone>
+      <a-cone position="-15 0 -8" radius-bottom="2.5" radius-top="0.4"
+              height="3.5" material="color: #231a38; roughness: 0.9">
+      </a-cone>
+      <a-cone position="8 0 -25" radius-bottom="5" radius-top="1"
+              height="6" material="color: #1b1230; roughness: 0.95">
+      </a-cone>
+
+      <!-- Scattered alien boulders -->
+      <a-sphere position="3 0.4 -5" radius="0.5"
+                material="color: #2a2045; roughness: 0.8">
+      </a-sphere>
+      <a-sphere position="-3 0.3 -7" radius="0.35"
+                material="color: #352850; roughness: 0.85">
+      </a-sphere>
+      <a-sphere position="6 0.25 -4" radius="0.3"
+                material="color: #201838; roughness: 0.9">
+      </a-sphere>
+      <a-dodecahedron position="-6 0.5 -4" radius="0.6"
+                      material="color: #3a2855; roughness: 0.7">
+      </a-dodecahedron>
+      <a-dodecahedron position="5 0.4 -9" radius="0.45"
+                      material="color: #2e2048; roughness: 0.75">
+      </a-dodecahedron>
+
+      <!-- =============================== -->
+      <!--   3D MODEL 1: SPACESHIP          -->
+      <!--   Landed on the alien surface    -->
+      <!-- =============================== -->
+      <a-entity gltf-model="#spaceship-model"
+                position="-5 0.5 -8"
+                rotation="0 30 0"
+                scale="2 2 2">
+      </a-entity>
+
+      <!-- Landing pad beneath the spaceship -->
+      <a-cylinder position="-5 0.05 -8" radius="3" height="0.1"
+                  material="color: #333355; metalness: 0.6; roughness: 0.4">
+      </a-cylinder>
+      <!-- Landing pad lights -->
+      <a-sphere position="-3 0.15 -6.5" radius="0.08"
+                material="color: #00FF88; shader: flat; emissive: #00FF88">
+      </a-sphere>
+      <a-sphere position="-7 0.15 -6.5" radius="0.08"
+                material="color: #00FF88; shader: flat; emissive: #00FF88">
+      </a-sphere>
+      <a-sphere position="-3 0.15 -9.5" radius="0.08"
+                material="color: #00FF88; shader: flat; emissive: #00FF88">
+      </a-sphere>
+      <a-sphere position="-7 0.15 -9.5" radius="0.08"
+                material="color: #00FF88; shader: flat; emissive: #00FF88">
+      </a-sphere>
+
+      <!-- =============================== -->
+      <!--   3D MODEL 2: ASTRONAUT          -->
+      <!--   Exploring near the ship        -->
+      <!-- =============================== -->
+      <a-entity gltf-model="#astronaut-model"
+                position="0 0 -6"
+                rotation="0 -20 0"
+                scale="1.5 1.5 1.5">
+      </a-entity>
+
+      <!-- =============================== -->
+      <!--   3D MODEL 3: PLANET             -->
+      <!--   Floating in the distant sky    -->
+      <!-- =============================== -->
+      <a-entity gltf-model="#planet-model"
+                position="15 20 -40"
+                rotation="15 45 0"
+                scale="12 12 12">
+      </a-entity>
+
+      <!-- =============================== -->
+      <!--     OUTPOST STRUCTURES           -->
+      <!--     (Primitives for set dressing)-->
+      <!-- =============================== -->
+
+      <!-- Research habitat module -->
+      <a-cylinder position="4 0.8 -10" radius="1.2" height="1.6"
+                  material="color: #444466; metalness: 0.7; roughness: 0.3">
+      </a-cylinder>
+      <!-- Habitat dome -->
+      <a-sphere position="4 1.8 -10" radius="1.2"
+                theta-start="0" theta-length="90"
+                material="color: #556688; metalness: 0.5; roughness: 0.3; opacity: 0.7; transparent: true">
+      </a-sphere>
+      <!-- Habitat door -->
+      <a-box position="4 0.6 -8.8" width="0.6" height="1.0" depth="0.05"
+             material="color: #88AACC; metalness: 0.8; roughness: 0.2">
+      </a-box>
+      <!-- Habitat interior glow -->
+      <a-entity light="type: point; color: #FFAA44; intensity: 0.4; distance: 5"
+                position="4 1.2 -10"></a-entity>
+
+      <!-- Antenna tower -->
+      <a-cylinder position="7 2 -11" radius="0.06" height="4"
+                  material="color: #667788; metalness: 0.8; roughness: 0.2">
+      </a-cylinder>
+      <a-cone position="7 4.2 -11" radius-bottom="0.5" radius-top="0.02"
+              height="0.6"
+              material="color: #556677; metalness: 0.7; roughness: 0.3">
+      </a-cone>
+      <!-- Blinking antenna light -->
+      <a-sphere position="7 4.55 -11" radius="0.06"
+                material="color: #FF3333; shader: flat">
+      </a-sphere>
+
+      <!-- Solar panel array -->
+      <a-cylinder position="8 0.8 -9" radius="0.05" height="1.6"
+                  material="color: #556677; metalness: 0.8">
+      </a-cylinder>
+      <a-box position="8 1.7 -9" width="2.5" height="0.05" depth="1.2"
+             rotation="20 -15 0"
+             material="color: #223355; metalness: 0.3; roughness: 0.5">
+      </a-box>
+
+      <!-- Supply crates near the habitat -->
+      <a-box position="2.5 0.3 -9" width="0.6" height="0.6" depth="0.6"
+             rotation="0 12 0"
+             material="color: #885533; roughness: 0.7">
+      </a-box>
+      <a-box position="2.2 0.25 -9.6" width="0.5" height="0.5" depth="0.5"
+             rotation="0 -5 0"
+             material="color: #886644; roughness: 0.7">
+      </a-box>
+      <a-box position="2.8 0.55 -9.3" width="0.4" height="0.4" depth="0.4"
+             rotation="0 25 0"
+             material="color: #996644; roughness: 0.65">
+      </a-box>
+
+      <!-- =============================== -->
+      <!--    ALIEN ENVIRONMENT DETAILS     -->
+      <!-- =============================== -->
+
+      <!-- Glowing alien crystals -->
+      <a-cone position="2 0 -3.5" radius-bottom="0.15" radius-top="0.02"
+              height="1.0" rotation="0 0 8"
+              material="color: #00FFCC; shader: flat; opacity: 0.8; transparent: true">
+      </a-cone>
+      <a-entity light="type: point; color: #00FFCC; intensity: 0.3; distance: 4"
+                position="2 0.5 -3.5"></a-entity>
+
+      <a-cone position="2.3 0 -3.2" radius-bottom="0.1" radius-top="0.01"
+              height="0.7" rotation="0 0 -5"
+              material="color: #00DDBB; shader: flat; opacity: 0.7; transparent: true">
+      </a-cone>
+
+      <a-cone position="-2 0 -4" radius-bottom="0.12" radius-top="0.02"
+              height="0.8" rotation="5 0 10"
+              material="color: #33FFDD; shader: flat; opacity: 0.75; transparent: true">
+      </a-cone>
+      <a-entity light="type: point; color: #33FFDD; intensity: 0.2; distance: 3"
+                position="-2 0.4 -4"></a-entity>
+
+      <a-cone position="-8 0 -12" radius-bottom="0.2" radius-top="0.03"
+              height="1.3" rotation="0 0 -6"
+              material="color: #00EEBB; shader: flat; opacity: 0.8; transparent: true">
+      </a-cone>
+      <a-entity light="type: point; color: #00EEBB; intensity: 0.3; distance: 5"
+                position="-8 0.6 -12"></a-entity>
+
+      <!-- =============================== -->
+      <!--          CAMERA SETUP            -->
+      <!-- =============================== -->
+      <a-entity position="0 1.6 2">
+        <a-camera look-controls wasd-controls></a-camera>
+      </a-entity>
+
     </a-scene>
   </body>
 </html>
